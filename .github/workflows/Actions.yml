@@ -1,0 +1,60 @@
+name: Actions
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  ruff:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Install ruff
+        run: pip install ruff
+      - name: Run ruff
+        run: ruff check .
+
+  bandit:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Install bandit
+        run: pip install bandit
+      - name: Run bandit
+        run: bandit -r .
+
+  mypy:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.14'
+      - name: Install mypy
+        run: pip install mypy pymongo pydantic beanie python-dotenv fastapi streamlit httpx
+      - name: Get changed python files
+        id: changed_files
+        run: echo "files=$(git diff --name-only HEAD~1 HEAD -- '*.py' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+      - name: Run mypy
+        if: steps.changed_files.outputs.files != ''
+        run: mypy ${{ steps.changed_files.outputs.files }}

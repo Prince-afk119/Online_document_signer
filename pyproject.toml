@@ -1,0 +1,14 @@
+[project]
+name = "online-document-signer"
+version = "0.1.0"
+description = "Online Document Signer"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "asycio",
+    "beanie",
+    "dotenv",
+    "fastapi",
+    "pymomgo",
+    "streamlit>=1.60.0",
+]
