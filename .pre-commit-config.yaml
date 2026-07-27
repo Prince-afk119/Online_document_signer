@@ -7,35 +7,33 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
 
-
 -   repo: local
     hooks:
     -   id: ruff
         name: Run ruff check only
-        entry:  ruff check .
+        entry: ruff check .
         language: python
         types: [python]
 
--  repo: local
-   hooks:
-   -  id: bandit
-      name: do a bandit check on the project files only not all
-      entry: bandit .
-      language: python
-      types: [python]
+-   repo: local
+    hooks:
+    -   id: bandit
+        name: do a bandit check on the project files only not all
+        entry: bandit .
+        language: python
+        types: [python]
 
--  repo: local
-   hooks:
-   -  id: mypy
-      name: run a type check on the project
-      entry: mypy
-      args: ["--explicit-package-bases"]
-      language: python
-      types: [python]
+-   repo: local
+    hooks:
+    -   id: mypy
+        name: run a type check on the project
+        entry: mypy
+        args: ["--explicit-package-bases"]
+        language: python
+        types: [python]
 
-
--  repo: https://github.com/compilerla/conventional-pre-commit
-   rev: v3.2.0
-   hooks:
-    - id: conventional-pre-commit
-      stages: [ commit-msg ]
+-   repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.2.0
+    hooks:
+    -   id: conventional-pre-commit
+        stages: [commit-msg]
