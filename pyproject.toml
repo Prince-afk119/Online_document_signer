@@ -3,12 +3,17 @@ name = "online-document-signer"
 version = "0.1.0"
 description = "Online Document Signer"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 dependencies = [
-    "asycio",
     "beanie",
-    "dotenv",
-    "fastapi",
-    "pymomgo",
-    "streamlit>=1.60.0",
+    "fastapi[standard]",
+    "motor",
+    "python-dotenv",
+    "python-multipart",
+    "pymongo",
+    "requests",
+    "pymupdf",
+    "Pillow",
+    "streamlit-drawable-canvas",
+    "streamlit>=1.40.0",
 ]
