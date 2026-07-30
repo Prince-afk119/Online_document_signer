@@ -6,7 +6,7 @@ from pymongo import AsyncMongoClient
 from dotenv import load_dotenv, find_dotenv
 from beanie import Document, init_beanie
 from datetime import datetime
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form, Depends
 import fitz
 from io import BytesIO
 
@@ -36,7 +36,7 @@ async def sign_doc(
     page: int = Form(...),
     x: float = Form(...),
     y: float = Form(...),
-    file: UploadFile = File(...),
+    file: UploadFile = Depends(File(...)),
 ):
 
     try:
