@@ -17,3 +17,7 @@ dependencies = [
     "streamlit-drawable-canvas",
     "streamlit>=1.40.0",
 ]
+[tool.mypy]
+[[tool.mypy.overrides]]
+module = "fitz"
+ignore_missing_imports = true
