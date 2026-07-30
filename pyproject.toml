@@ -21,4 +21,3 @@ dependencies = [
 [[tool.mypy.overrides]]
 module = "fitz"
 ignore_missing_imports = true
-mypy_path = "Backend"
