@@ -51,14 +51,12 @@ export default function App() {
     canvas.width = vp.width
     canvas.height = vp.height
     await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise
-    // Redraw click marker if exists
-    if (clickPos) drawMarker(clickPos.x, clickPos.y)
   }
 
   function drawMarker(x, y) {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
-    ctx.strokeStyle = 'red'
+    ctx.strokeStyle = 'black'
     ctx.lineWidth = 2
     ctx.strokeRect(x, y, 150, 50)
   }
