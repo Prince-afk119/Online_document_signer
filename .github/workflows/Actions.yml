@@ -58,4 +58,4 @@ jobs:
         run: echo "files=$(git diff --name-only HEAD~1 HEAD -- '*.py' | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Run mypy
         if: steps.changed_files.outputs.files != ''
-        run: mypy ${{ steps.changed_files.outputs.files }}
+        run: mypy ${{ steps.changed_files.outputs.files }} --explicit-package-bases
