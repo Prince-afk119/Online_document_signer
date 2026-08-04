@@ -1,7 +1,9 @@
-from beanie import init_beanie, Document as Doc
-from dotenv import load_dotenv, find_dotenv
-from pymongo import AsyncMongoClient
 import os
+
+from beanie import Document as Doc
+from beanie import init_beanie
+from dotenv import find_dotenv, load_dotenv
+from pymongo import AsyncMongoClient
 
 load_dotenv(find_dotenv())
 password = os.environ.get("DB_PSWRD")

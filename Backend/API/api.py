@@ -1,16 +1,18 @@
-from backend.Database.signed_Document_DB import Store_Signed_Doc
-from pydantic import BaseModel
-import sys
 import os
-from pymongo import AsyncMongoClient
-from dotenv import load_dotenv, find_dotenv
-from beanie import Document, init_beanie
-from datetime import datetime
-from fastapi import FastAPI, File, UploadFile, Form
-import fitz
-from io import BytesIO
+import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from datetime import UTC,datetime #noqa:I001
+from io import BytesIO
+
+import fitz
+from Backend.Database.signed_Document_DB import Store_Signed_Doc
+from beanie import Document, init_beanie
+from dotenv import find_dotenv, load_dotenv
+from fastapi import FastAPI, File, Form, UploadFile
+from pydantic import BaseModel
+from pymongo import AsyncMongoClient
+
 # Environment variables
 load_dotenv(find_dotenv())
 password = os.environ.get("DB_PSWRD")
@@ -36,7 +38,7 @@ async def sign_doc(
     page: int = Form(...),
     x: float = Form(...),
     y: float = Form(...),
-    file: UploadFile = File(...),
+    file: UploadFile = File(...), #noqa:B008
 ):
 
     try:
@@ -53,7 +55,7 @@ async def sign_doc(
         signed_content = signed_doc.getvalue()
 
         await Store_Signed_Doc(Dname=str(file.filename), Dcontent=signed_content)
-    except Exception as e:
+    except Exception as e: #noqa:BLE001
         print(e)
         return {"error": str(e)}
 
@@ -62,11 +64,11 @@ class Documents(Document):
     email: str
     document_name: str
     content: bytes
-    uploaded_at: datetime = datetime.now()
+    uploaded_at: datetime = datetime.now(tz=UTC)
 
 
 @app.post("/upload")
-async def Store_Doc(file: UploadFile = File(...), email: str = Form(...)):
+async def Store_Doc(file: UploadFile = File(...), email: str = Form(...)): #noqa: B008
     client: AsyncMongoClient = AsyncMongoClient(
         f"mongodb+srv://{user_name}:{password}@imscluster.mhsw47k.mongodb.net/"
     )
